@@ -15,4 +15,4 @@ includeGuests
 includeDeleted
 
 ```bash
-./hipshowusers --token=<your auth toke> --includeDeleted
+./hipshowusers --token=<your auth token> --includeDeleted
