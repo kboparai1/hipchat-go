@@ -7,5 +7,5 @@ Prints all rooms from your group
 
 ```bash
 go build
-./hipshow --token=<your auth token>
+./hipshowers--token=<your auth token>
 ```
