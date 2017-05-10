@@ -1,7 +1,7 @@
 hipshow
 =====
 
-Prints all rooms from your group
+Prints all users from your group.
 
 ##### Usage
 
@@ -9,3 +9,10 @@ Prints all rooms from your group
 go build
 ./hipshowusers --token=<your auth token>
 ```
+
+Other flags:
+includeGuests
+includeDeleted
+
+```bash
+./hipshowusers --token=<your auth toke> --includeDeleted
