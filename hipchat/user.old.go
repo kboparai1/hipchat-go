@@ -50,7 +50,7 @@ type UpdateUserPresenceRequest struct {
 
 // User represents the HipChat user.
 type User struct {
-	XmppJid      string       `json:"xmpp_jid"`
+	XMPPJid      string       `json:"xmpp_jid"`
 	IsDeleted    bool         `json:"is_deleted"`
 	Name         string       `json:"name"`
 	LastActive   string       `json:"last_active"`
@@ -69,10 +69,10 @@ type User struct {
 
 // Users represents the API return of a collection of Users plus metadata
 type Users struct {
-	Items      []User 		`json:"items"`
-	StartIndex int    		`json:"start_index"`
-	MaxResults int    		`json:"max_results"`
-	Links      PageLinks 	`json:"links"`
+	Items      []User `json:"items"`
+	StartIndex int    `json:"start_index"`
+	MaxResults int    `json:"max_results"`
+	Links      Links  `json:"links"`
 }
 
 // UserService gives access to the user related methods of the API.
@@ -121,6 +121,7 @@ func (u *UserService) Message(id string, msgReq *MessageRequest) (*http.Response
 // UserListOptions specified the parameters to the UserService.List method.
 type UserListOptions struct {
 	ListOptions
+	ExpandOptions
 	// Include active guest users in response.
 	IncludeGuests bool `url:"include-guests,omitempty"`
 	// Include deleted users in response.
@@ -130,7 +131,7 @@ type UserListOptions struct {
 // List returns all users in the group.
 //
 // HipChat API docs: https://www.hipchat.com/docs/apiv2/method/get_all_users
-func (u *UserService) List(opt *UserListOptions) (*Users, *http.Response, error) {
+func (u *UserService) List(opt *UserListOptions) ([]User, *http.Response, error) {
 	req, err := u.client.NewRequest("GET", "user", opt, nil)
 
 	users := new(Users)
@@ -138,7 +139,7 @@ func (u *UserService) List(opt *UserListOptions) (*Users, *http.Response, error)
 	if err != nil {
 		return nil, resp, err
 	}
-	return users, resp, nil
+	return users.Items, resp, nil
 }
 
 // Update a user
